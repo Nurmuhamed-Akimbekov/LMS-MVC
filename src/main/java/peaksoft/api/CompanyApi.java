@@ -6,23 +6,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Company;
 import peaksoft.servcie.CompanyService;
+import peaksoft.servcie.InstructorService;
 
 @Controller
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyApi {
     private final CompanyService companyService;
+    private final InstructorService instructorService;
 
-    @GetMapping
+    @GetMapping("/allCompany")
     public String getAllCompanies(Model model) {
         model.addAttribute("allCompanies", companyService.getAllCompany());
         return "mainPage";
     }
 
-    @GetMapping("/lets")
-    public String getInfo() {
-        return "/info";
-    }
 
     @GetMapping("/new")
     public String addCompany(Model model) {
@@ -33,30 +31,31 @@ public class CompanyApi {
     @PostMapping("/save")
     private String saveCompany(@ModelAttribute("newCompany") Company company) {
         companyService.saveCompany(company);
-        return "redirect:/companies";
+        return "redirect:/companies/allCompany";
     }
 
-//    @GetMapping("/delete")
-//    public String delete() {
-//companyService.deleteCompanyById();
-//        return "redirect:/companies";
-//    }
-
     @GetMapping("/{id}/delete")
-    public String deleteCompany(@PathVariable("id") Long companyId){
+    public String deleteCompany(@PathVariable("id") Long companyId) {
         companyService.deleteCompanyById(companyId);
-        return "redirect:/companies";
+        return "redirect:/companies/allCompany";
     }
 
     @GetMapping("/{id}/update")
-    public String getByIdToUpdate(Model model,@PathVariable("id") Long comId){
-        model.addAttribute("upCompany",companyService.getById(comId));
+    public String getByIdToUpdate(Model model, @PathVariable("id") Long comId) {
+        model.addAttribute("upCompany", companyService.getById(comId));
         return "/update";
     }
 
-    @PutMapping("/{id}/updateCompany")
-    public String update(@ModelAttribute("upCompany")Company company,@PathVariable Long id){
-        companyService.updateById(id,company);
-        return "redirect:/companies";
+    @PostMapping("/{id}/updateCompany")
+    public String update(@ModelAttribute("upCompany") Company company, @PathVariable Long id) {
+        companyService.updateById(id, company);
+        return "redirect:/companies/allCompany";
     }
+
+    @GetMapping("/lets/{companyId}")
+    public String getInfo(@PathVariable Long companyId, Model model) {
+        model.addAttribute("company", companyService.getById(companyId));
+        return "more-company";
+    }
+
 }

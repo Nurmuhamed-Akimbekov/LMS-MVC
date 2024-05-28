@@ -40,7 +40,8 @@ public class CompanyRepoImpl implements CompanyRepo {
         Company company = getById(id);
         company.setName(newCompany.getName());
         company.setImageLink(newCompany.getImageLink());
-        company.setDescription(newCompany.getDescription());
+        company.setAddress(newCompany.getAddress());
+        company.setCountry(newCompany.getCountry());
         entityManager.merge(company);
     }
 
