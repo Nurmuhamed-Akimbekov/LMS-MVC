@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h1>add lesson</h1>
+<form th:method="POST" th:action="@{/lessons/{courseId}/save(courseId=${courseId})}" th:object="${newLesson}">
+    <p>
+        <label for="image">Lesson name:</label>
+        <input type="text" th:field="*{lessonName}" id="image" required="required" placeholder="enter course name"/>
+    </p>
+
+    <p>
+        <button type="submit"> Save Lesson</button>
+    </p>
+
+
+</form>
+
+</body>
+</html>

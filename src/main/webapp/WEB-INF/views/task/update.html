@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h1>update task</h1>
+<form th:method="POST" th:action="@{/tasks/{lessonId}/update/{taskId}(lessonId=${lessonId},taskId=${newTask.id})}" th:object="${newTask}">
+    <p>
+        <label for="image">Task name:</label>
+        <input type="text" th:field="*{taskName}" id="image" required="required" placeholder="enter task name"/>
+    </p>
+
+    <p>
+        <label for="text">Description:</label>
+        <input type="text" th:field="*{taskText}" id="text" required="required" placeholder="enter task description"/>
+    </p>
+
+    <p>
+        <label for="deadline">Deadline:</label>
+        <input type="date" th:field="*{deadline}" id="deadline" required="required" placeholder="enter task deadline"/>
+    </p>
+
+    <p>
+        <button type="submit"> Update Task</button>
+    </p>
+
+
+</form>
+
+</body>
+</html>
