@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import peaksoft.entity.Group;
 import peaksoft.repository.GroupRepo;
-import peaksoft.repository.LessonRepo;
 import peaksoft.servcie.GroupService;
 
 import java.util.List;

@@ -22,7 +22,7 @@ import static jakarta.persistence.CascadeType.*;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "course_gen")
-    @SequenceGenerator(name ="course_gen",sequenceName = "course_seq",allocationSize = 1,initialValue = 1)
+    @SequenceGenerator(name ="course_gen",sequenceName = "course_seq",allocationSize = 1,initialValue = 8)
     private Long id;
     private String courseName;
     private LocalDate dateOfStart;
@@ -33,7 +33,7 @@ public class Course {
     @OneToMany(mappedBy = "course",cascade = {CascadeType.DETACH,CascadeType.REFRESH,CascadeType.MERGE})
     private List<Instructor> instructor = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "courses",cascade = {DETACH,PERSIST,REFRESH,MERGE,})
+    @ManyToMany(cascade = {DETACH,REFRESH,MERGE,})
     private List<Group> groups =  new ArrayList<>();
 
     @OneToMany(mappedBy = "course",cascade = {REMOVE,PERSIST,REFRESH,MERGE,})

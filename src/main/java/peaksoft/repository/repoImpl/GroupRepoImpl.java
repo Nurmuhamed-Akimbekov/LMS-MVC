@@ -10,6 +10,7 @@ import peaksoft.entity.Course;
 import peaksoft.entity.Group;
 import peaksoft.repository.GroupRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -21,11 +22,15 @@ public class GroupRepoImpl implements GroupRepo {
 
     @Override
     public String createGroup(Group group, List<Long> coursesId) {
-        for (Long l : coursesId) {
-            Course course = entityManager.find(Course.class, l);
-            group.getCourses().add(course);
+        for (Long courseId : coursesId) {
+            Course course = entityManager.find(Course.class, courseId);
+            if (course != null) {
+                group.getCourses().add(course);
+                course.getGroups().add(group); // Устанавливаем обратную связь для курса
+                entityManager.merge(course);
+            }
         }
-        entityManager.persist(group);
+        entityManager.persist(group); // Переносим сохранение группы за пределы цикла
         return "Group created";
     }
 
@@ -74,6 +79,11 @@ public class GroupRepoImpl implements GroupRepo {
     @Override
     public String deleteGroupById(Long groupId) {
         Group group = entityManager.find(Group.class, groupId);
+        List<Course> courses = group.getCourses();
+        for (Course course : courses){
+            course.setGroups(null);
+        }
+        group.setCourses(null);
         entityManager.remove(group);
         return "Group deleted";
     }

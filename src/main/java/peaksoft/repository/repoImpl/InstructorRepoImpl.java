@@ -36,14 +36,16 @@ public class InstructorRepoImpl implements InstructorRepo {
 
     @Override
     public List<Instructor> getAllInstructorsByCourseId(Long courseId) {
-        return entityManager.createQuery("select i from Course  c inner join Instructor i on c.id=:id", Instructor.class).setParameter("id", courseId).getResultList();
+        return entityManager.createQuery("select i from Instructor i  join i.course c where c.id=:id", Instructor.class).setParameter("id", courseId).getResultList();
     }
 
     @Override
     public List<Instructor> getAllInstructorsByComId(Long comId) {
-        return entityManager.createQuery("select i from Company  c inner join Instructor i on i.id=c.id where  c.id=:id", Instructor.class).setParameter("id", comId).getResultList();
-
+        return entityManager.createQuery("select i from Instructor i join i.companies c where c.id = :id", Instructor.class)
+                .setParameter("id", comId)
+                .getResultList();
     }
+
 
     @Override
     public void updateInstructor(Long insId, Instructor newInstructor) {
@@ -63,11 +65,17 @@ public class InstructorRepoImpl implements InstructorRepo {
     }
 
     @Override
-    public void assignInstructorToCompany(Long insId, Long comId) {
+    public void assignInstructorToCompany(List<Long> insId, Long comId) {
         Company company = entityManager.find(Company.class, comId);
-        Instructor instructor = entityManager.find(Instructor.class, insId);
-        company.getInstructors().add(instructor);
-        instructor.getCompanies().add(company);
+        for (Long inId:insId){
+            Instructor instructor = entityManager.find(Instructor.class, inId);
+            if (instructor!=null){
+                company.getInstructors().add(instructor);
+                instructor.getCompanies().add(company);
+                entityManager.merge(instructor);
+            }
+        }
+        entityManager.merge(company);
     }
 
     @Override
@@ -76,6 +84,8 @@ public class InstructorRepoImpl implements InstructorRepo {
         Instructor instructor = entityManager.find(Instructor.class, insId);
         course.getInstructor().add(instructor);
         instructor.setCourse(course);
+        entityManager.merge(instructor);
+        entityManager.merge(course);
     }
 
 

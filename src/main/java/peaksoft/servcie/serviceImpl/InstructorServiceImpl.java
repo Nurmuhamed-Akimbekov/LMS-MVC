@@ -1,11 +1,6 @@
 package peaksoft.servcie.serviceImpl;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.InjectService;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import peaksoft.entity.Instructor;
 import peaksoft.repository.InstructorRepo;
@@ -49,7 +44,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void assignInstructorToCompany(Long insId, Long comId) {
+    public void assignInstructorToCompany(List<Long> insId, Long comId) {
         instructorRepo.assignInstructorToCompany(insId, comId);
     }
 

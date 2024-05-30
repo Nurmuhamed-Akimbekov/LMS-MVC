@@ -11,7 +11,7 @@ public interface InstructorService {
     List<Instructor>getAllInstructorsByCourseId(Long courseId);
     void updateInstructor(Long insId,Instructor newInstructor);
     void deleteById(Long insId);
-    void assignInstructorToCompany(Long insId,Long comId);
+    void assignInstructorToCompany(List<Long> insId,Long comId);
     void addInstructorToCourse(Long insId,Long courseId);
     List<Instructor>getAllInstructorsByComId(Long comId);
 }

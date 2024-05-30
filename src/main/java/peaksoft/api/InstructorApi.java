@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Instructor;
 import peaksoft.servcie.InstructorService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/instructors")
 @RequiredArgsConstructor
@@ -49,15 +51,51 @@ public class InstructorApi {
         instructorService.deleteById(instructorId);
         return "redirect:/instructors";
     }
-    @GetMapping("/assignIn/{companyId}")
-    public String assignInstructor(@PathVariable Long companyId,Model model){
-        model.addAttribute("allInstructors",instructorService.getAllInstructorsByComId(companyId));
-        model.addAttribute("comId",companyId);
+
+    @GetMapping("/instructors/getFrom/{companyId}")
+    public String assignInstructor(@PathVariable Long companyId, Model model) {
+        model.addAttribute("allInstructors", instructorService.getAllInstructors());
+        model.addAttribute("comId", companyId);
         return "/assign/ins-com";
     }
-    @GetMapping("/addInstructor/{companyId}/{instructorId}")
-    public String addIns(@PathVariable Long companyId,@PathVariable Long instructorId ){
-        instructorService.assignInstructorToCompany(companyId,instructorId);
-        return "redirect:/assignIn/{companyId}";
+
+    @PostMapping("/{companyId}/addInstructors")
+    public String addIns(@PathVariable Long companyId, @RequestParam List<Long> instructorIds) {
+        instructorService.assignInstructorToCompany(instructorIds, companyId);
+        return "redirect:/instructors/{companyId}/getAll";
     }
+
+    @GetMapping("/{companyId}/getAll")
+    public String getAllInFromCompany(@PathVariable Long companyId, Model model) {
+        model.addAttribute("allIn", instructorService.getAllInstructorsByComId(companyId));
+        model.addAttribute("comId", companyId);
+        return "/assign/com/allComIns";
+    }
+
+    @GetMapping("/{companyId}/getCourseIns/{courseId}")
+    private String getAllInsFromCourse(@PathVariable Long courseId, @PathVariable Long companyId, Model model) {
+        model.addAttribute("allInsInCourse", instructorService.getAllInstructorsByComId(companyId));
+        model.addAttribute("courseId", courseId);
+        model.addAttribute("comId", companyId);
+        return "/assign/cour/ins-course";
+    }
+
+    @PostMapping("/{companyId}/{courseId}/AddInsToCourse")
+    public String assignInsToCourse(@PathVariable Long companyId, @PathVariable Long courseId, @RequestParam List<Long> instructorIds) {
+        for (Long instructorId : instructorIds) {
+            instructorService.addInstructorToCourse(instructorId, courseId);
+        }
+        return "redirect:/instructors/" + companyId + "/" + courseId + "/getAll";
+    }
+
+    @GetMapping("/{companyId}/{courseId}/getAll")
+    public String getAllFromCourse(@PathVariable Long companyId, @PathVariable Long courseId, Model model) {
+        model.addAttribute("allIns", instructorService.getAllInstructorsByCourseId(courseId));
+        model.addAttribute("courseId", courseId);
+        model.addAttribute("comId", companyId);
+        return "assign/cour/allCourIn";
+    }
+
 }
+
+

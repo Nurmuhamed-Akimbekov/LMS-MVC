@@ -5,7 +5,7 @@ import peaksoft.entity.Group;
 import java.util.List;
 
 public interface GroupService {
-    String createGroup(Group group, List<Long> coursesId);
+    String createGroup(Group group,List<Long> coursesId);
 
     String addCourseToGroup(Long groupId, Long courseId);
 

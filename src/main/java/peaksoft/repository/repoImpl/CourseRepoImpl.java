@@ -34,6 +34,13 @@ public class CourseRepoImpl implements CourseRepo {
     }
 
     @Override
+    public List<Course> getAllCourseByGroupId(Long groupId) {
+        return entityManager.createQuery("select c from Course c join c.groups g where g.id=:id",
+                Course.class).setParameter("id",groupId).getResultList();
+    }
+
+
+    @Override
     public Course getById(Long courseId) {
         return entityManager.find(Course.class,courseId);
     }

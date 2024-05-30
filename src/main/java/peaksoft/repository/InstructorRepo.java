@@ -12,6 +12,6 @@ public interface InstructorRepo {
     List<Instructor>getAllInstructorsByComId(Long comId);
     void updateInstructor(Long insId,Instructor newInstructor);
     void deleteById(Long insId);
-    void assignInstructorToCompany(Long insId,Long comId);
+    void assignInstructorToCompany(List<Long> insId,Long comId);
     void addInstructorToCourse(Long insId,Long courseId);
 }

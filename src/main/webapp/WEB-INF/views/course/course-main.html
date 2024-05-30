@@ -28,13 +28,10 @@
 <body>
 
 <div class="container mt-5">
-    <!-- Отладочный вывод количества курсов -->
     <div th:text="'Number of courses: ' + ${#lists.size(allCourses)}"></div>
-    <!-- Отладочный вывод значения companyId -->
     <div th:text="'Company ID: ' + ${companyId}"></div>
 
     <div class="row">
-        <!-- Исправленная ошибка: th:each="course : ${allCourses}" -->
         <div class="col-md-4 mb-4" th:each="course : ${allCourses}">
             <div class="card h-100">
                 <div class="card-body">
@@ -43,7 +40,7 @@
                         <strong>Description:</strong> <span th:text="${course.description}">Description</span><br>
                         <strong>Start Date:</strong> <span th:text="${course.dateOfStart}">Start Date</span><br>
                     </p>
-                    <!-- Исправленная ошибка: добавлен закрывающий кавычки для onsubmit -->
+                    <a th:href="@{/instructors/{companyId}/{courseId}/getAll(courseId=${course.id},companyId=${companyId})}" class="btn btn-warning btn-block mt-2">Instructors</a>
                     <a th:href="@{/course/{companyId}/{courseId}/getById(companyId=${companyId},courseId=${course.id})}" class="btn btn-warning btn-block mt-2">Update</a>
                     <a th:href="@{/lessons/{courseId} (courseId=${course.id})}" class="btn btn-primary btn-block mt-2">More</a>
                     <form th:method="get" th:action="@{/course/{companyId}/delete/{courseId}(companyId=${companyId},courseId=${course.id})}" onsubmit="return confirmDeletion()" class="mt-2">
@@ -61,7 +58,7 @@
     <a th:href="@{/course/{companyId}/new(companyId=${companyId})}" class="btn btn-custom">Add New Course</a>
 </div>
 <div class="container mt-5">
-    <a th:href="@{/course/{companyId} (companyId=${companyId})}" class="btn btn-custom">Return</a>
+    <a th:href="@{/companies/lets/{companyId} (companyId=${companyId})}" class="btn btn-custom">Return</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
