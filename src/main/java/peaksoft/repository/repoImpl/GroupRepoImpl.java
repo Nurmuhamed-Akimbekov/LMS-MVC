@@ -22,15 +22,19 @@ public class GroupRepoImpl implements GroupRepo {
 
     @Override
     public String createGroup(Group group, List<Long> coursesId) {
+        // Сначала сохранить сущность Group
+        entityManager.persist(group);
+
         for (Long courseId : coursesId) {
             Course course = entityManager.find(Course.class, courseId);
             if (course != null) {
                 group.getCourses().add(course);
                 course.getGroups().add(group); // Устанавливаем обратную связь для курса
                 entityManager.merge(course);
+                entityManager.merge(group);
             }
         }
-        entityManager.persist(group); // Переносим сохранение группы за пределы цикла
+
         return "Group created";
     }
 

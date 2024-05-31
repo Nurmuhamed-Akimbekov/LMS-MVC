@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Company;
 import peaksoft.entity.Course;
+import peaksoft.entity.Instructor;
 import peaksoft.repository.CourseRepo;
 
 import java.util.List;
@@ -58,6 +59,15 @@ public class CourseRepoImpl implements CourseRepo {
 
     @Override
     public void deleteCourse(Long courseId) {
-        entityManager.remove(entityManager.find(Course.class, courseId));
+        Course course = entityManager.find(Course.class, courseId);
+        for (Instructor i : course.getInstructor()){
+            if (i.getCourse().getId().equals(courseId)){
+                i.setCourse(null);
+            }
+        }
+        course.setInstructor(null);
+
+
+        entityManager.remove(course);
     }
 }

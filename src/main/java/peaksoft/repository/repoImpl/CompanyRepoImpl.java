@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Company;
+import peaksoft.entity.Instructor;
 import peaksoft.repository.CompanyRepo;
 
 import java.util.List;
@@ -47,6 +48,11 @@ public class CompanyRepoImpl implements CompanyRepo {
 
 @Override
 public void deleteCompanyById(Long id) {
-    entityManager.remove(entityManager.find(Company.class, id));
+    Company company = entityManager.find(Company.class, id);
+    for (Instructor instructor:company.getInstructors()){
+        instructor.getCompanies().removeIf(company1 -> company1.getId().equals(id));
+    }
+    company.setInstructors(null);
+    entityManager.remove(company);
 }
 }

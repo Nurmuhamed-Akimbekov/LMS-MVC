@@ -33,7 +33,7 @@ public class Course {
     @OneToMany(mappedBy = "course",cascade = {CascadeType.DETACH,CascadeType.REFRESH,CascadeType.MERGE})
     private List<Instructor> instructor = new ArrayList<>();
 
-    @ManyToMany(cascade = {DETACH,REFRESH,MERGE,})
+    @ManyToMany(cascade = {DETACH,REFRESH})
     private List<Group> groups =  new ArrayList<>();
 
     @OneToMany(mappedBy = "course",cascade = {REMOVE,PERSIST,REFRESH,MERGE,})

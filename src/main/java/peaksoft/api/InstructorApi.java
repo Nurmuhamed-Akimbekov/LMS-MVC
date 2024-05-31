@@ -96,6 +96,12 @@ public class InstructorApi {
         return "assign/cour/allCourIn";
     }
 
+    @GetMapping("/{companyId}/{instructorId}")
+    public String deleteInsFromCom(@PathVariable Long companyId, @PathVariable Long instructorId){
+        instructorService.deleteInstructorFromCompany(instructorId,companyId);
+        return "redirect:/instructors/{companyId}/getAll";
+    }
+
 }
 
 

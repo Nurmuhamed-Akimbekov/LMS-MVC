@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>update lesson</h1>
-<form th:method="POST" th:action="@{/lessons/{courseId}/update/{lessonId}(courseId=${courseId},lessonId=${lessonId})}" th:object="${findLesson}">
+<form th:method="POST" th:action="@{/lessons/{companyId}/{courseId}/update/{lessonId}(companyId=${companyId},courseId=${courseId},lessonId=${lessonId})}" th:object="${findLesson}">
     <p>
         <label for="image">Lesson name:</label>
         <input type="text" th:field="*{lessonName}" id="image" required="required" placeholder="enter course name"/>

@@ -88,5 +88,17 @@ public class InstructorRepoImpl implements InstructorRepo {
         entityManager.merge(course);
     }
 
+    @Override
+    public void deleteInstructorFromCompany(Long insId, Long comId) {
+        Instructor instructor = getInstructorById(insId);
+        Company company = entityManager.find(Company.class, comId);
+        company.getInstructors().removeIf
+                (instructor1 -> instructor1.getId().equals(insId));
+        instructor.getCompanies().removeIf(company1 -> company1.getId().equals(comId));
+        entityManager.merge(company);
+        entityManager.merge(instructor);
+
+    }
+
 
 }

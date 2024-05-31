@@ -57,4 +57,9 @@ public class InstructorServiceImpl implements InstructorService {
     public List<Instructor> getAllInstructorsByComId(Long comId) {
         return instructorRepo.getAllInstructorsByComId(comId);
     }
+
+    @Override
+    public void deleteInstructorFromCompany(Long insId, Long comId) {
+        instructorRepo.deleteInstructorFromCompany(insId, comId);
+    }
 }

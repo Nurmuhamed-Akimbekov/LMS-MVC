@@ -26,9 +26,9 @@ public class Group {
     private String groupName;
     private String imageLink;
     private String description;
-    @ManyToMany(mappedBy = "groups",cascade = {DETACH,REFRESH,MERGE,})
+    @ManyToMany(mappedBy = "groups",cascade = {DETACH,REFRESH})
     private List<Course> courses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "group",cascade = {REMOVE,PERSIST,REFRESH,MERGE,})
+    @OneToMany(mappedBy = "group",cascade = {REMOVE,REFRESH})
     private List<Student> students = new ArrayList<>();
 }

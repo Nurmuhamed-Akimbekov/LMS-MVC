@@ -87,8 +87,8 @@
 <body>
 
 <div class="container mt-5">
-    <div th:text="'Number of lessons in this course: ' + ${#lists.size(allTasks)}"></div>
-    <div th:text="'Course ID: ' + ${lessonId}"></div>
+    <div th:text="'Number of tasks in this lesson: ' + ${#lists.size(allTasks)}"></div>
+    <div th:text="'lesson ID: ' + ${lessonId}"></div>
 
     <div class="row">
         <div class="col-md-4 mb-4" th:each="task : ${allTasks}">
@@ -97,8 +97,8 @@
                     <h5 class="card-title" th:text="${task.getTaskName()}">Task name</h5>
                     <h6 class="card-title" th:text="${task.getTaskText()}">Description</h6>
                     <h6 class="card-title" th:text="${task.deadline}">Deadline</h6>
-                    <a th:href="@{/tasks/{lessonId}/{taskId}/get(taskId=${task.id},lessonId=${lessonId})}" class="btn btn-warning btn-block mt-2">Update</a>
-                    <form th:method="get" th:action="@{/tasks/{lessonId}/delete/{taskId}(taskId=${task.id},lessonId=${lessonId})}" onsubmit="return confirmDeletion()" class="mt-2">
+                    <a th:href="@{/tasks/{companyId}/{courseId}/{lessonId}/{taskId}/get(companyId=${companyId},courseId=${courseId},taskId=${task.id},lessonId=${lessonId})}" class="btn btn-warning btn-block mt-2">Update</a>
+                    <form th:method="get" th:action="@{/tasks/{companyId}/{courseId}/{lessonId}/delete/{taskId}(companyId=${companyId},courseId=${courseId},taskId=${task.id},lessonId=${lessonId})}" onsubmit="return confirmDeletion()" class="mt-2">
                         <input type="hidden" name="_method" value="DELETE"/>
                         <input type="submit" class="btn btn-danger btn-block" value="Delete"/>
                     </form>
@@ -109,8 +109,8 @@
 </div>
 
 <div class="container mt-5 text-center">
-    <a th:href="@{/tasks/{lessonId}/new (lessonId=${lessonId})}" class="btn btn-custom mb-2">Add New Task</a>
-    <a th:href="@{/companies/allCompany}" class="btn btn-custom">Return to company</a>
+    <a th:href="@{/tasks/{companyId}/{courseId}/{lessonId}/new (companyId=${companyId},courseId=${courseId},lessonId=${lessonId})}" class="btn btn-custom mb-2">Add New Task</a>
+    <a th:href="@{/lessons/{companyId}/{courseId}(companyId=${companyId},courseId=${courseId})}" class="btn btn-custom">Return to company</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

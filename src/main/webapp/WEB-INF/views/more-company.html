@@ -111,10 +111,10 @@
     <h2 th:text="${company.getName()}">Company Name</h2>
 </div>
 <div class="sidebar">
-    <a th:href="@{/groups/{companyId}(companyId=${company.id})}">Groups</a>
+    <a th:href="@{/groups/{companyId}(companyId=${companyId})}">Groups</a>
     <a th:href="@{/course/{companyId}(companyId=${companyId})}" >Courses</a>
     <a th:href="@{/instructors/{companyId}/getAll(companyId=${companyId})}">Instructors</a>
-    <a href="#">Students</a>
+    <a th:href="@{/students/{companyId}/get/all(companyId=${companyId})}">Students</a>
 </div>
 <div class="content">
     <div class="go-back-card">

@@ -12,8 +12,8 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepo studentRepo;
     @Override
-    public String createStudent(Student student) {
-        return studentRepo.createStudent(student);
+    public String createStudent(Student student, Long groupId) {
+        return studentRepo.createStudent(student,groupId );
     }
 
     @Override
@@ -39,5 +39,25 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public String assignStudentToGroup(Long studentId, Long groupId) {
         return studentRepo.assignStudentToGroup(studentId, groupId);
+    }
+
+    @Override
+    public List<Student> getAllByStudentsByCompanyId(Long comId) {
+        return studentRepo.getAllByStudentsByCompanyId(comId);
+    }
+
+    @Override
+    public List<Student> getAllByStudentsByGroupId(Long groupId) {
+        return studentRepo.getAllByStudentsByGroupId(groupId);
+    }
+
+    @Override
+    public List<Student> getAllOnlineStudents() {
+        return studentRepo.getAllOnlineStudents();
+    }
+
+    @Override
+    public List<Student> getAllOfflineStudents() {
+        return studentRepo.getAllOfflineStudents();
     }
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>creat task</h1>
-<form th:method="POST" th:action="@{/tasks/{lessonId}/save (lessonId=${lessonId})}" th:object="${newTask}">
+<form th:method="POST" th:action="@{/tasks/{companyId}/{courseId}/{lessonId}/save (companyId=${companyId},courseId=${courseId},lessonId=${lessonId})}" th:object="${newTask}">
     <p>
         <label for="image">Task name:</label>
         <input type="text" th:field="*{taskName}" id="image" required="required" placeholder="enter task name"/>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>add lesson</h1>
-<form th:method="POST" th:action="@{/lessons/{courseId}/save(courseId=${courseId})}" th:object="${newLesson}">
+<form th:method="POST" th:action="@{/lessons/{companyId}/{courseId}/save(companyId=${companyId},courseId=${courseId})}" th:object="${newLesson}">
     <p>
         <label for="image">Lesson name:</label>
         <input type="text" th:field="*{lessonName}" id="image" required="required" placeholder="enter course name"/>

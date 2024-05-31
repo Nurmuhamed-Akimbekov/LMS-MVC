@@ -14,4 +14,5 @@ public interface InstructorRepo {
     void deleteById(Long insId);
     void assignInstructorToCompany(List<Long> insId,Long comId);
     void addInstructorToCourse(Long insId,Long courseId);
+    void deleteInstructorFromCompany(Long insId,Long comId);
 }
