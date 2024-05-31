@@ -83,6 +83,21 @@
         .form-inline {
             display: inline;
         }
+
+        /* Фиксированный элемент в правом верхнем углу */
+        .fixed-top-right {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Фиксированный элемент в левом верхнем углу */
+        .fixed-top-left {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: black; /* цвет текста */
+        }
     </style>
 </head>
 <body>
@@ -92,29 +107,32 @@
     <div th:text="'group ID: ' + ${groupId}"></div>
 
     <ul class="list-group">
-        <li class="list-group-item" th:each="student : ${allStudents}">
-            <div class="d-flex justify-content-between align-items-center">
+        <li class="list-group-item d-flex justify-content-between align-items-center" th:each="student : ${allStudents}">
+            <div>
                 <h5 class="mb-1 list-group-item-title" th:text="${student.lastName} + ' ' + ${student.firstName}"></h5>
-                <div>
-                    <div class="card-body p-0">
-                        <h6 class="card-title" th:text="${student.phoneNumber}">phone number</h6>
-                        <p class="card-text" th:text="${student.email}">Email</p>
-                        <p class="card-text" th:text="${student.formatStudy}">Format Study</p>
-                    </div>
-                    <a th:href="@{/students/{companyId}/{groupId}/{studentId}/get(companyId=${companyId},groupId=${groupId},studentId=${student.id})}" class="btn btn-warning btn-block">Update</a>
-                    <form th:method="get" th:action="@{/students/{companyId}/{groupId}/{studentId}/delete(companyId=${companyId},groupId=${groupId},studentId=${student.id})}" onsubmit="return confirmDeletion()" class="form-inline">
-                        <input type="hidden" name="_method" value="DELETE"/>
-                        <input type="submit" class="btn btn-danger btn-block" value="Delete"/>
-                    </form>
-                </div>
+                <p class="card-text mb-0" th:text="${student.phoneNumber}">Phone Number</p>
+                <p class="card-text mb-0" th:text="${student.email}">Email</p>
+                <p class="card-text mb-0" th:text="${student.formatStudy}">Format Study</p>
+            </div>
+            <div class="btn-group">
+                <a th:href="@{/students/{companyId}/{groupId}/{studentId}/get(companyId=${companyId},groupId=${groupId},studentId=${student.id})}" class="btn btn-warning">Update</a>
+                <form th:method="get" th:action="@{/students/{companyId}/{groupId}/{studentId}/delete(companyId=${companyId},groupId=${groupId},studentId=${student.id})}" onsubmit="return confirmDeletion()" class="form-inline">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                </form>
             </div>
         </li>
     </ul>
 </div>
 
-<div class="container mt-5 text-center">
-    <a th:href="@{/students/{companyId}/{groupId}/new(companyId=${companyId},groupId=${groupId})}" class="btn btn-custom mb-2">Add New Student</a>
-    <a th:href="@{/groups/{companyId} (companyId=${companyId})}" class="btn btn-custom">Go Back</a>
+<div class="container mt-5">
+    <!-- Кнопка "Add New Student" в правом верхнем углу -->
+    <a th:href="@{/students/{companyId}/{groupId}/new(companyId=${companyId},groupId=${groupId})}" class="btn btn-custom fixed-top-right"> + Add New Student</a>
+</div>
+
+<div class="container mt-5">
+    <!-- Ссылка "Go Back" в левом верхнем углу -->
+    <a th:href="@{/groups/{companyId} (companyId=${companyId})}" class="btn btn-custom fixed-top-left"> < Back</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

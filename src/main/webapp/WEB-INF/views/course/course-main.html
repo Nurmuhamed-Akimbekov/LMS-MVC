@@ -23,6 +23,21 @@
         .btn-custom:hover {
             background-color: #0056b3;
         }
+
+        /* Фиксированный элемент в правом верхнем углу */
+        .fixed-top-right {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Фиксированный элемент в левом верхнем углу */
+        .fixed-top-left {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: black; /* цвет текста */
+        }
     </style>
 </head>
 <body>
@@ -54,11 +69,13 @@
 </div>
 
 <div class="container mt-5">
-    <!-- Исправленная ошибка: удалены лишние пробелы после "/new" -->
-    <a th:href="@{/course/{companyId}/new(companyId=${companyId})}" class="btn btn-custom">Add New Course</a>
+    <!-- Кнопка "Add New Course" в правом верхнем углу -->
+    <a th:href="@{/course/{companyId}/new(companyId=${companyId})}" class="btn btn-custom fixed-top-right"> + Add New Course</a>
 </div>
+
 <div class="container mt-5">
-    <a th:href="@{/companies/lets/{companyId} (companyId=${companyId})}" class="btn btn-custom">Return</a>
+    <!-- Ссылка "Return" в левом верхнем углу -->
+    <a th:href="@{/companies/lets/{companyId} (companyId=${companyId})}" class="btn btn-custom fixed-top-left"> < back</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -66,7 +83,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function confirmDeletion() {
-        return confirm('Are you sure you want to delete     this course?');
+        return confirm('Are you sure you want to delete this course?');
     }
 </script>
 </body>
